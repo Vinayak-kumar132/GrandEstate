@@ -1,6 +1,8 @@
 import express from 'express';
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cookieParser from"cookie-parser";
+import cors from 'cors';
 dotenv.config();
 
 import userRouter from './routes/user.route.js'
@@ -16,6 +18,16 @@ mongoose.connect(process.env.MONGODB_URL).then(()=>{
 const app=express();
 //by default we are not allowed to send any json to server
 app.use(express.json());
+app.use(cookieParser());
+app.use(
+	cors({
+	  origin: [
+	     // Deployed frontend URL
+		"http://localhost:3000" // Local development URL
+	  ],
+	  credentials: true, // If you are using cookies or sessions
+	})
+  );
 
 app.listen(3000,()=>{
     console.log('Server is running on port 3000!!');

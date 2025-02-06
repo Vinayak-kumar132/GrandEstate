@@ -35,6 +35,9 @@ export default function SignUp() {
       }
       setLoading(false);
       setError(null);
+      toast('SignUp Successfull!', {
+        icon: '👏',
+      });
       navigate('/sign-in')
     } catch (error) {
       setLoading(false);
