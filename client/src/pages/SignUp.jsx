@@ -1,6 +1,6 @@
-import React from "react";
-import { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 
 export default function SignUp() {
@@ -26,8 +26,9 @@ export default function SignUp() {
       });
 
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       if (data.success === false) {
+        toast.error("Couldn't Sign up");
         setError(data.message);
         setLoading(false);
         return;
@@ -38,13 +39,14 @@ export default function SignUp() {
     } catch (error) {
       setLoading(false);
       setError(error.message);
+      toast.error("Something went wrong!"); 
     }
   };
 
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-semibold py-7">Sign Up</h1>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <form disable={loading} className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
           className="border p-3 rounded-lg outline-none"
           id="username"
