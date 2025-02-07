@@ -4,9 +4,11 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { signInStart,signInfailure,signInSuccess} from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
 
 
 export default function SignIn() {
+
   const [formData, setFormData] = useState({});
   const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -38,6 +40,7 @@ export default function SignIn() {
       dispatch(signInSuccess(data));
       
       toast.success("Signin Successfull");
+      navigate("/");
       
     } catch (error) {
       dispatch(signInfailure(error.message));
@@ -50,6 +53,7 @@ export default function SignIn() {
       <h1 className="text-3xl text-center font-semibold py-7">Sign In</h1>
       <form disable={loading} className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
+          required
           className="border p-3 rounded-lg outline-none"
           id="email"
           type="text"
@@ -57,6 +61,7 @@ export default function SignIn() {
           onChange={handleChange}
         />
         <input
+          required
           className="border p-3 rounded-lg outline-none"
           id="password"
           type="password"
@@ -69,7 +74,7 @@ export default function SignIn() {
         >
           {loading ? "Loading..." : "Sign In"}
         </button>
-        
+        <OAuth/>
       </form>
       <div className="flex gap-3 pt-3">
        Don't have an account?
