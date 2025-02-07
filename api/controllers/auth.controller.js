@@ -22,6 +22,22 @@ export const signup = async (req, res, next) => {
         });
     }
 
+    const differentusername = await User.findOne({ username });
+		if (differentusername) {
+			return res.status(400).json({
+				success: false,
+				message: "Username already registered try different one!!",
+			});
+		}
+
+    const existingUser = await User.findOne({ email });
+		if (existingUser) {
+			return res.status(400).json({
+				success: false,
+				message: "User already exists. Please sign in to continue.",
+			});
+		}
+
     const hashedPassword = await bcryptjs.hash(password, 10);
     const newUser = new User({ username, email, password: hashedPassword });
 

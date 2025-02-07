@@ -38,7 +38,7 @@ export default function SignIn() {
       dispatch(signInSuccess(data));
       
       toast.success("Signin Successfull");
-      navigate('/')
+      
     } catch (error) {
       dispatch(signInfailure(error.message));
       toast.error("Something went wrong!"); 
