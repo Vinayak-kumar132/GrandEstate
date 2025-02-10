@@ -27,6 +27,7 @@ export default function OAuth() {
             body:JSON.stringify({name:result.user.displayName,email:result.user.email,photo:result.user.photoURL}),
         })
         const data=await res.json();
+        // console.log("response from login with google...",data)
         dispatch(signInSuccess(data));
         toast.success("Login Successfull");
         navigate("/");

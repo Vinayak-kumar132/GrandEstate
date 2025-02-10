@@ -36,7 +36,7 @@ export default function Header() {
           <Link to="/profile">
           {
             currentUser?(<img className='rounded-full h-9 w-9 object-cover border-2 border-gray-600 
-             p-[1px] bg-gray-200' src={currentUser.avatar} alt="profile"/>):
+             p-[1px] bg-gray-200' src={currentUser?.avatar || currentUser?.validUser?.avatar} loading='lazy' alt="profile"/>):
             (<li className='text-slate-700 hover:underline cursor-pointer select-none'>Sign in</li>)
           }
           </Link>
