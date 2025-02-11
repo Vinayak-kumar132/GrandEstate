@@ -1,6 +1,6 @@
 import User from '../models/user.model.js';
 import bcryptjs from 'bcryptjs';
-import { errorHandler } from '../utils/error.js';
+import  errorHandler from '../utils/error.js';
 import jwt from 'jsonwebtoken';
 import dotenv from "dotenv";
 dotenv.config();
@@ -45,6 +45,7 @@ export const signup = async (req, res, next) => {
         await newUser.save();
         res.status(201).json({
             message: "User Created Successfully",
+            newUser,
         })
 
     } catch (error) {
