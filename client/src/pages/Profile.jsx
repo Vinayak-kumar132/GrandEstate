@@ -4,7 +4,7 @@ import { getStorage, ref, getDownloadURL, uploadBytesResumable } from 'firebase/
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-hot-toast";
 import { app } from '../firebase';
-import { updateUserStart, updateUserSuccess, updateUserfailure,deleteUserStart,deleteUserSuccess,deleteUserFailure } from '../redux/user/userSlice'
+import { updateUserStart, updateUserSuccess, updateUserfailure,deleteUserStart,deleteUserSuccess,deleteUserFailure,signOutUserStart,signOutUserSuccess,signOutUserFailure } from '../redux/user/userSlice'
 import { useDispatch } from 'react-redux';
 
 
@@ -101,6 +101,23 @@ export default function Profile() {
       dispatch(deleteUserFailure(error.message));
     }
   };
+  signOutUserSuccess
+  const handleSignOut=async ()=>{
+    try{
+      dispatch(signOutUserStart());
+       const res=await fetch('/api/auth/signout');
+       const data=await res.json();
+       if(data.success===false){
+        dispatch(signOutUserFailure(data.message));
+        toast.error(data.message);
+        return;
+       }
+       dispatch(signOutUserSuccess(data));
+       toast.success("logged out");
+    }catch(error){
+      dispatch(signOutUserFailure("Internal Server error"));
+    }
+  }
   
   
 
@@ -184,8 +201,8 @@ export default function Profile() {
       </form>
 
       <div className='flex justify-between mt-5'>
-        <button onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>Delete account</button>
-        <span  className='text-red-700 cursor-pointer'>Sign out</span>
+        <button onClick={handleDeleteUser} className='text-red-800  font-semibold hover:text-red-500 cursor-pointer'>Delete account</button>
+        <span onClick={handleSignOut}  className='text-red-800 cursor-pointer font-semibold hover:text-red-500'>Sign out</span>
       </div>
     </div>
   );
