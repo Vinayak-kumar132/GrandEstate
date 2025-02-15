@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import {Link} from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -197,8 +198,15 @@ export default function Profile() {
           placeholder="Password"
         />
 
-        <button disabled={loading} className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'>{loading ? 'Loading...':'Update'}</button>
+        <button disabled={loading} className='bg-slate-700 text-white rounded-lg p-3 font-semibold uppercase hover:opacity-95 disabled:opacity-80'>{loading ? 'Loading...':'Update'}</button>
+
+        <Link className="bg-green-700 text-white p-3 rounded-lg uppercase font-semibold text-center hover:opacity-95  border border-green-600"  to={"/create-listing"}>
+        Create Listing
+      </Link>
+
       </form>
+
+      
 
       <div className='flex justify-between mt-5'>
         <button onClick={handleDeleteUser} className='text-red-800  font-semibold hover:text-red-500 cursor-pointer'>Delete account</button>
