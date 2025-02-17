@@ -6,6 +6,8 @@ import SwiperCore from "swiper";
 import { useSelector } from "react-redux";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css/bundle";
+import Contact from "../components/Contact";
+
 
 import {
     FaBath,
@@ -14,7 +16,7 @@ import {
     FaMapMarkerAlt,
     FaParking,
     FaShare,
-  } from "react-icons/fa";
+} from "react-icons/fa";
 
 
 
@@ -24,6 +26,7 @@ export default function Listing() {
     const [listing, setListing] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [contact, setContact] = useState(false);
 
     const params = useParams();
     const { currentUser } = useSelector((state) => state.user);
@@ -57,14 +60,14 @@ export default function Listing() {
     return (
         <main>
             {loading && <Spinner />}
-            {error && <p className='text-center my-auto text-2xl'>Something Went wrong</p>}
+            {error && <p className='flex text-center items-center justify-center -mt-20 h-screen font-serif text-2xl font-semibold bg-slate-300 opacity-80'>Something Went Wrong . . .</p>}
 
             {listing && !loading && !error && (
                 <div className='max-w-6xl mx-auto p-2'>
                     <Swiper modules={[Navigation, Pagination, Autoplay]}
-                     pagination={{ clickable: true}}
-                    className="custom-swiper"
-                    navigation autoplay={{ delay: 3000 ,disableOnInteraction: false}} loop={true}>
+                        pagination={{ clickable: true }}
+                        className="custom-swiper"
+                        navigation autoplay={{ delay: 3000, disableOnInteraction: false }} loop={true}>
                         {listing.imageUrls.map((url) => (
                             <SwiperSlide key={url}>
                                 <div
@@ -75,7 +78,7 @@ export default function Listing() {
 
                                     }}
                                     onMouseEnter={(e) => e.target.closest(".swiper").swiper.autoplay.stop()} // Pause on hover
-        onMouseLeave={(e) => e.target.closest(".swiper").swiper.autoplay.start()} // Resume when mouse leaves
+                                    onMouseLeave={(e) => e.target.closest(".swiper").swiper.autoplay.start()} // Resume when mouse leaves
                                 ></div>
                             </SwiperSlide>
                         ))}
@@ -132,7 +135,16 @@ export default function Listing() {
                                 {listing.furnished ? "Furnished" : "Unfurnished"}
                             </li>
                         </ul>
-                        
+                        {currentUser && listing.userRef !== currentUser._id && !contact && (
+                            <button
+                                onClick={() => setContact(true)}
+                                className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
+                            >
+                                Contact landlord
+                            </button>
+                        )}
+
+                        {contact && <Contact listing={listing} />}
                     </div>
 
 
