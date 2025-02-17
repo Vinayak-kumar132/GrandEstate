@@ -121,3 +121,22 @@ input[type="number"]::-webkit-outer-spin-button {
 /* input[type="number"] {
   -moz-appearance: textfield;
 } */
+
+
+/* Default bullet color */
+.custom-swiper .swiper-pagination {
+  position: relative !important;
+  margin-top: 5px; /* Adjust as needed */
+}
+
+/* Style bullets */
+.swiper-pagination-bullet {
+  background-color: #424242 !important;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #448aff !important;
+  opacity: 1;
+}
+
