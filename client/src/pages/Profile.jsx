@@ -19,7 +19,7 @@ export default function Profile() {
   const [formData, setFormData] = useState({});
   const[showLoading,setShowLoading]=useState(false);
   const [userListings, setUserListings] = useState([]);
-  const [open,setOpen]=useState(false);
+  const [openList,setOpenList]=useState(false);
 
 
   const dispatch = useDispatch();
@@ -161,7 +161,7 @@ export default function Profile() {
   };
 
   const handleShowListings=async (e)=>{
-     if(!open){
+     if(!openList){
       try{
         setShowListingError(false);
         setShowLoading(true);
@@ -180,12 +180,12 @@ export default function Profile() {
         setShowListingError(true);
         setShowLoading(false);
       }
-      setOpen(true);
+      setOpenList(true);
 
      }
      else{
       setUserListings([]);
-      setOpen(false);
+      setOpenList(false);
      }
 
 
@@ -269,7 +269,7 @@ export default function Profile() {
         <span onClick={handleSignOut}  className='text-red-800 cursor-pointer font-semibold hover:text-red-500'>Sign out</span>
       </div>
 
-       <button disabled={showLoading} onClick={handleShowListings} className='text-green-700 w-full hover:text-green-600 font-semibold mt-2'>{open ? "Hide Listing":"Show Listing"}</button>
+       <button disabled={showLoading} onClick={handleShowListings} className='text-green-700 w-full hover:text-green-600 font-semibold mt-2'>{openList ? "Hide Listing":"Show Listing"}</button>
        <p className='text-red-700 mt-5'>{showListingError ?"Error in showing list":""}</p>
 
        {userListings && userListings.length > 0 && (
@@ -280,7 +280,7 @@ export default function Profile() {
           {userListings.map((listing) => (
             <div
               key={listing._id}
-              className="border border-slate-500 rounded-lg flex justify-between p-3 items-center gap-4"
+              className="border border-slate-400 rounded-lg flex justify-between p-3 items-center gap-4"
             >
               <Link to={`/listing/${listing._id}`}>
                 <img
