@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Error = () => {
   return (
     <div className='bg-gray-300 flex items-center w-full justify-center -mt-20 h-screen gap-16 mx-auto'>
-      <div className='flex flex-col place-items-start gap-4 flex-wrap w-[412px]'>
+      <div className='flex flex-col place-items-start gap-4 flex-wrap  sm:w-[412px] mx-2'>
         <p className='text-black text-3xl font-semibold'>Oops! The page you were looking for doesn’t exist.</p>
 
         <p className='text-black'>You may have mistyped the address or the page may have moved.</p>
