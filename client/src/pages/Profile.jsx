@@ -19,6 +19,7 @@ export default function Profile() {
   const [formData, setFormData] = useState({});
   const[showLoading,setShowLoading]=useState(false);
   const [userListings, setUserListings] = useState([]);
+  const [open,setOpen]=useState(false);
 
 
   const dispatch = useDispatch();
@@ -160,24 +161,36 @@ export default function Profile() {
   };
 
   const handleShowListings=async (e)=>{
-    try{
-      setShowListingError(false);
-      setShowLoading(true);
-      const res=await fetch(`/api/user/listings/${currentUser._id}`);
-     
-      const data =await res.json();
-      if(data.success===false){
+     if(!open){
+      try{
+        setShowListingError(false);
+        setShowLoading(true);
+        const res=await fetch(`/api/user/listings/${currentUser._id}`);
+       
+        const data =await res.json();
+        if(data.success===false){
+          setShowListingError(true);
+          return;
+        }
+        setUserListings(data);
+        setShowLoading(false);
+  
+  
+      }catch(error){
         setShowListingError(true);
-        return;
+        setShowLoading(false);
       }
-      setUserListings(data);
-      setShowLoading(false);
+      setOpen(true);
+
+     }
+     else{
+      setUserListings([]);
+      setOpen(false);
+     }
 
 
-    }catch(error){
-      setShowListingError(true);
-      setShowLoading(false);
-    }
+
+    
   }
 
   const handleListingDelete = async (listingId) => {
@@ -256,7 +269,7 @@ export default function Profile() {
         <span onClick={handleSignOut}  className='text-red-800 cursor-pointer font-semibold hover:text-red-500'>Sign out</span>
       </div>
 
-       <button disabled={showLoading} onClick={handleShowListings} className='text-green-700 w-full hover:text-green-600'>Show Listing</button>
+       <button disabled={showLoading} onClick={handleShowListings} className='text-green-700 w-full hover:text-green-600 font-semibold mt-2'>{open ? "Hide Listing":"Show Listing"}</button>
        <p className='text-red-700 mt-5'>{showListingError ?"Error in showing list":""}</p>
 
        {userListings && userListings.length > 0 && (

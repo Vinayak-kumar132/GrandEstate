@@ -5,6 +5,23 @@
 body{
     background-color: rgb(241,245,241);
 }
+/* index.css */
+/* body, html {   // It will completely remove the overflow (if page is present )
+  overflow: hidden;
+  height: 100%;
+} */
+body, html {
+  overflow: hidden;  /* Prevent the scrollbar from showing */
+  height: 100%;      /* Ensure the page takes full height */
+}
+
+body {
+  overflow-y: scroll; /* Keep vertical scrolling enabled, but hide the scrollbar */
+  -ms-overflow-style: none;  /* For IE and Edge */
+  scrollbar-width: none; /* For Firefox */
+}
+
+
 
 .checkbox-wrapper-46 input[type="checkbox"] {
     display: none;

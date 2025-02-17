@@ -15,6 +15,7 @@ const App = () => {
     // <BrowserRouter>
     <div>
       <Header />
+      <div className=" mt-20">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -27,6 +28,7 @@ const App = () => {
         </Route>
 
       </Routes>
+      </div>
     </div>
     // </BrowserRouter>
   )
