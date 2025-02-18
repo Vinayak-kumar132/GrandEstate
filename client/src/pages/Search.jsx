@@ -1,5 +1,8 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import ListingItem from "../components/ListingItem";
+import Spinner from '../components/Spinner';
+
 
 export default function Search() {
 
@@ -61,50 +64,50 @@ export default function Search() {
         const offerFromUrl = urlParams.get("offer");
         const sortFromUrl = urlParams.get("sort");
         const orderFromUrl = urlParams.get("order");
-    
+
         if (
-          searchTermFromUrl ||
-          typeFromUrl ||
-          parkingFromUrl ||
-          furnishedFromUrl ||
-          offerFromUrl ||
-          sortFromUrl ||
-          orderFromUrl
+            searchTermFromUrl ||
+            typeFromUrl ||
+            parkingFromUrl ||
+            furnishedFromUrl ||
+            offerFromUrl ||
+            sortFromUrl ||
+            orderFromUrl
         ) {
-          setSidebardata({
-            //URL is string that is why we add url
-            searchTerm: searchTermFromUrl || "",
-            type: typeFromUrl || "all",
-            parking: parkingFromUrl === "true",
-            furnished: furnishedFromUrl === "true",
-            offer: offerFromUrl === "true",
-            sort: sortFromUrl || "created_at",
-            order: orderFromUrl || "desc",
-          });
+            setSidebardata({
+                //URL is string that is why we add url
+                searchTerm: searchTermFromUrl || "",
+                type: typeFromUrl || "all",
+                parking: parkingFromUrl === "true",
+                furnished: furnishedFromUrl === "true",
+                offer: offerFromUrl === "true",
+                sort: sortFromUrl || "created_at",
+                order: orderFromUrl || "desc",
+            });
         }
-    
+
         const fetchListings = async () => {
-          try {
-            setLoading(true);
-            setShowMore(false);
-            const searchQuery = urlParams.toString();
-            const res = await fetch(`/api/listing/get?${searchQuery}`);
-            const data = await res.json();
-            if (data.length > 8) {
-              setShowMore(true);
-            }
-            else{
+            try {
+                setLoading(true);
                 setShowMore(false);
+                const searchQuery = urlParams.toString();
+                const res = await fetch(`/api/listing/get?${searchQuery}`);
+                const data = await res.json();
+                if (data.length > 8) {
+                    setShowMore(true);
+                }
+                else {
+                    setShowMore(false);
+                }
+                setListings(data);
+                setLoading(false);
+            } catch (error) {
+                console.error("Error fetching listings:", error);
+                setLoading(false);
             }
-            setListings(data);
-            setLoading(false);
-          } catch (error) {
-            console.error("Error fetching listings:", error);
-            setLoading(false);
-          }
         };
         fetchListings();
-      }, [location.search]);
+    }, [location.search]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -281,8 +284,34 @@ export default function Search() {
 
 
             {/* for right side */}
-            <div className='p-3 mt-2'>
-                <h1 className='text-gray-700 text-2xl md:text-3xl font-semibold'>Listing results...</h1>
+            <div className="flex-1">
+                <h1 className="text-2xl md:text-3xl font-semibold  border-slate-300 p-3 text-slate-600 mt-5">
+                    Listing Results...
+                </h1>
+                <div className="p-7 flex flex-wrap gap-4 ">
+                    {!loading && listings.length === 0 && (
+                        <p className="text-xl text-slate-600 flex justify-center w-full">No listing found! </p>
+                    )}
+
+                    {loading && (
+                        <Spinner />
+                    )}
+
+                    {!loading &&
+                        listings &&
+                        listings.map((listing) => (
+                            <ListingItem key={listing._id} listing={listing} />
+                        ))}
+
+                    {showMore && (
+                        <button
+                            onClick={onShowMoreClick}
+                            className="text-green-700 hover:underline p-7"
+                        >
+                            ShowMore
+                        </button>
+                    )}
+                </div>
             </div>
 
 
