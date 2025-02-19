@@ -216,16 +216,16 @@ export default function CreateListing() {
             <form onSubmit={handleSubmit} className='flex flex-col gap-4 sm:flex-row'>
 
                 <div className='flex flex-col gap-4 flex-1'>
-                    <input type="text" placeholder='Name' className='border p-3 rounded-lg' required id='name' maxLength='62' minLength="10"
+                    <input type="text" placeholder='Name' className='border outline-none p-3 rounded-lg' required id='name' maxLength='62' minLength="10"
                         onChange={handlechange}
                         value={formData.name} />
 
-                    <textarea type="text" placeholder='Description' className='border p-3 rounded-lg' required id='description'
+                    <textarea type="text" placeholder='Description' className='border outline-none p-3 rounded-lg' required id='description'
                         onChange={handlechange}
                         value={formData.description}
                     />
 
-                    <input type="text" placeholder='Address' className='border p-3 rounded-lg' required id='address'
+                    <input type="text" placeholder='Address' className='border p-3 outline-none rounded-lg' required id='address'
                         onChange={handlechange}
                         value={formData.address} />
 

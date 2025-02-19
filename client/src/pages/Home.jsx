@@ -6,6 +6,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import ListingItem from "../components/ListingItem";
+import { FaSquareFacebook } from "react-icons/fa6";
+import { AiFillTwitterCircle } from "react-icons/ai";
+import { RiInstagramFill } from "react-icons/ri";
 
 export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
@@ -62,7 +65,7 @@ export default function Home() {
           </h1>
         </div>
 
-        <p className='text-sm text-gray-400'>
+        <p className='text-sm text-gray-500'>
           GrandEstate will help you find your home fast, easy, and comfortable.
           <br />
           Our expert support is always available.
@@ -76,28 +79,28 @@ export default function Home() {
       {/* Swiper */}
       <div className="max-w-7xl mx-auto rounded-lg">
 
-      {offerListings && offerListings.length > 0 && 
-        <Swiper
-          modules={[Navigation, Autoplay]}
-          navigation={true}
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
-          loop={true}
-        >
-          {offerListings.map((listing) => (
-            <SwiperSlide key={listing._id}>
-              <div
-                style={{
-                  background: `url(${listing.imageUrls?.[0] || ""}) center no-repeat`,
-                  backgroundSize: "cover",
-                }}
-                className='h-[700px] rounded-xl'
-                onMouseEnter={(e) => e.target.closest(".swiper")?.swiper?.autoplay?.stop?.()}
-                onMouseLeave={(e) => e.target.closest(".swiper")?.swiper?.autoplay?.start?.()}
-              ></div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      }
+        {offerListings && offerListings.length > 0 &&
+          <Swiper
+            modules={[Navigation, Autoplay]}
+            navigation={true}
+            autoplay={{ delay: 4000, disableOnInteraction: false }}
+            loop={true}
+          >
+            {offerListings.map((listing) => (
+              <SwiperSlide key={listing._id}>
+                <div
+                  style={{
+                    background: `url(${listing.imageUrls?.[0] || ""}) center no-repeat`,
+                    backgroundSize: "cover",
+                  }}
+                  className='h-[700px] rounded-xl'
+                  onMouseEnter={(e) => e.target.closest(".swiper")?.swiper?.autoplay?.stop?.()}
+                  onMouseLeave={(e) => e.target.closest(".swiper")?.swiper?.autoplay?.start?.()}
+                ></div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        }
 
 
       </div>
@@ -168,7 +171,51 @@ export default function Home() {
           </div>
         )}
       </div>
-      
+
+      <footer className="h-[300px] p-14 bg-gradient-to-b from-gray-300 mt-[150px] to-gray-300">
+
+        <div className=" flex flex-col sm:flex-row max-w-7xl mx-auto justify-between ">
+
+        <div className=" flex flex-col mb-6">
+            <h2 className="text-2xl font-bold text-gray-700">Grand <span className="text-gray-600">Estate</span></h2>
+            <p className="text-sm text-gray-600">Find your dream home with ease</p>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-6 text-gray-700 font-semibold">
+              <a href="/about" className="hover:text-gray-900">About</a>
+              <a href="/search" className="hover:text-gray-900">Services</a>
+              <a href="/profile" className="hover:text-gray-900">Profile</a>
+            </div>
+
+            <div className="flex gap-8 mt-4">
+              <a href="#" className="text-gray-700 hover:text-blue-700 text-3xl"><FaSquareFacebook /></a>
+              <a href="#" className="text-gray-700 hover:text-blue-500 text-3xl scale-110"><AiFillTwitterCircle /></a>
+              <a href="#" className="text-gray-700 scale-110 hover:text-pink-700 text-3xl"><RiInstagramFill /></a>
+
+            </div>
+          </div>
+
+
+         
+        </div>
+
+
+        <div className=" flex sm:flex-row-reverse  max-w-7xl mx-auto justify-between">
+          {/* <div></div> */}
+          <p className="text-xs flex gap-1 flex-wrap sm:whitespace-nowrap sm:text-sm text-gray-900 mt-6">
+            <span className="font-semibold">© 2025 GrandEstate.</span> All rights reserved. Developed by <p className="font-bold">Vinayak Kumar.</p>
+          </p>
+        </div>
+
+
+
+
+
+
+      </footer>
+
+
     </div>
   );
 }

@@ -49,7 +49,8 @@ export default function SignIn() {
   };
 
   return (
-    <div className="p-3 max-w-lg mx-auto">
+    <div className="py-20 px-2">
+      <div className="p-10 max-w-lg mx-auto bg-gray-100 shadow-2xl rounded-xl">
       <h1 className="text-3xl text-center font-semibold py-7">Sign In</h1>
       <form disable={loading} className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
@@ -84,6 +85,8 @@ export default function SignIn() {
       </div>
       {error && <p className="text-red-500 mt-5">{error}</p>}
     </div>
+    </div>
+    
   );
 }
 

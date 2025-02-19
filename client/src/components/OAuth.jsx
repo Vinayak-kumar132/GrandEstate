@@ -45,7 +45,7 @@ export default function OAuth() {
     <button onClick={handleGoogleClick} type="button" className='bg-blue-100 hover:bg-blue-200 border-2 border-blue-200 text-white py-2 px-3 transition-all duration-200 rounded-lg uppercase hover:opacity-95 disabled:opacity-80 flex gap-6 items-center justify-center'>
         
          <img src={icon} alt="logo" loading='lazy' className='w-[30px]' />
-        <p className='text-black font-semibold'>Continue with google</p>
+        <p className='text-black text-sm font-semibold'>Continue with google</p>
     </button>
   )
 }
