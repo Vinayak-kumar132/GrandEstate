@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from"cookie-parser";
 import cors from 'cors';
+import path from 'path'
+import { fileURLToPath } from "url";
 dotenv.config();
 
 import userRouter from './routes/user.route.js'
@@ -15,26 +17,20 @@ mongoose.connect(process.env.MONGODB_URL).then(()=>{
     console.log(err);
 })
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname=path.dirname(__filename);
+
 
 const app=express();
 //by default we are not allowed to send any json to server
 app.use(express.json());
 app.use(cookieParser());
-// app.use(
-// 	cors({
-// 	  origin: [
-// 	     // Deployed frontend URL
-// 		"http://localhost:3000" // Local development URL
-// 	  ],
-// 	  credentials: true, // If you are using cookies or sessions
-// 	})
-//   );
 
 app.use(
   cors({
     origin: [
-      "http://localhost:5173", // Allow Vite frontend
-      "http://localhost:3000"  // Allow other local instances if needed
+         process.env.CLIENT_URL_LOCAL, // Allow Vite frontend
+         process.env.CLIENT_URL        // Allow frontend hosted URL
     ],
     credentials: true, // Required if you're using cookies or authentication
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -50,6 +46,13 @@ app.listen(3000,()=>{
 app.use("/api/user",userRouter);
 app.use("/api/auth",authRouter);
 app.use("/api/listing",listingRouter);
+
+
+
+app.use(express.static(path.join(__dirname,'/client/dist')));
+
+app.get('*',(req,res)=>{res.sendFile(path.join(__dirname,'client','dist','index.html'));
+})
 
 //middleware
 app.use((err,req,res,next)=>{
