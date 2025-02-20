@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
@@ -14,6 +15,7 @@ export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
   const [rentListings, setRentListings] = useState([]);
   const [saleListings, setSaleListings] = useState([]);
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchOfferListings = async () => {
@@ -172,11 +174,27 @@ export default function Home() {
         )}
       </div>
 
+      
+      {!currentUser && (
+        <div className="mt-[100px] flex justify-center">
+        <Link to="/sign-in"
+
+          className="bg-slate-700 hover:bg-gray-300 text-white rounded-full shadow-lg hover:shadow-gray-700 hover:text-gray-700 py-3 px-10 text-center duration-200 hover:border-gray-400 border-transparent border-2  hover:border-2"
+        >
+          Signin to Continue
+        </Link>
+        </div>
+      )}
+         {/*  bg-gray-700 text-white hover:bg-gray-300 shadow-lg hover:shadow-gray-700 hover:text-gray-700 duration-200 border-gray-500 border-2 px-4 py-3 rounded-lg font-semibold */}
+      
+
+     
+
       <footer className="h-[300px] p-14 bg-gradient-to-b from-gray-300 mt-[150px] to-gray-300">
 
         <div className=" flex flex-col sm:flex-row max-w-7xl mx-auto justify-between ">
 
-        <div className=" flex flex-col mb-6">
+          <div className=" flex flex-col mb-6">
             <h2 className="text-2xl font-bold text-gray-700">Grand <span className="text-gray-600">Estate</span></h2>
             <p className="text-sm text-gray-600">Find your dream home with ease</p>
           </div>
@@ -197,7 +215,7 @@ export default function Home() {
           </div>
 
 
-         
+
         </div>
 
 

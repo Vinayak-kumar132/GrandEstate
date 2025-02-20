@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import Spinner from '../components/Spinner';
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
@@ -145,6 +145,17 @@ export default function Listing() {
                         )}
 
                         {contact && <Contact listing={listing} />}
+
+
+                        {!currentUser && (
+                            <Link to="/sign-in"
+
+                                className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 max-w-md p-3 text-center shadow-lg shadow-gray-500"
+                            >
+                                Signin to continue
+                            </Link>
+                        )}
+
                     </div>
 
 
