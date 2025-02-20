@@ -33,7 +33,7 @@ export default function Header() {
     <header className='bg-slate-200 shadow-md fixed top-0 w-full z-50'>
       <div className='flex justify-between items-center max-w-6xl mx-auto p-4'>
         <Link to="/">
-        <h1 className='font-bold text-sm sm:text-xl flex flex-row'>
+        <h1 className='sm:font-extrabold font-grechen font-bold sm:scale-105 md:scale-110 lg:scale-150 text-md sm:text-2xl flex flex-row'>
           <span className='text-slate-500'>Grand</span>
           <span className='text-slate-700'>Estate</span>
         </h1>
@@ -64,17 +64,17 @@ export default function Header() {
 
         <ul className='flex gap-4 items-center font-semibold '>
           <Link to="/">
-          <li className='hidden sm:inline text-slate-700 hover:underline cursor-pointer select-none'>Home</li></Link>
+          <li className='hidden sm:inline text-slate-700 hover:text-yellow-800 cursor-pointer select-none'>Home</li></Link>
           
           <Link to="about">
-          <li className='hidden sm:inline text-slate-700 hover:underline cursor-pointer select-none'>About</li>
+          <li className='hidden sm:inline text-slate-700 hover:text-yellow-800 cursor-pointer select-none'>About</li>
           </Link>
           
           <Link to="/profile">
           {
-            currentUser?(<img className='rounded-full h-9 w-9 object-cover border-2 border-gray-600 
+            currentUser?(<img className='rounded-full h-8 w-8 sm:h-9 sm:w-9 object-cover border-2 hover:border-yellow-800 border-gray-600 
              p-[1px] bg-gray-200' src={currentUser?.avatar || currentUser?.validUser?.avatar} loading='lazy' alt="profile"/>):
-            (<li className='text-slate-700 hover:underline text-sm sm:text-base cursor-pointer whitespace-nowrap select-none'>Sign in</li>)
+            (<li className='text-slate-700 hover:text-yellow-800 text-sm sm:text-base cursor-pointer whitespace-nowrap select-none'>Sign in</li>)
           }
           </Link>
         </ul>

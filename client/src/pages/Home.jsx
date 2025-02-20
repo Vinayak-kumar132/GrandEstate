@@ -109,11 +109,11 @@ export default function Home() {
 
 
       {/* last section */}
-      <div className="max-w-6xl mx-auto p-4 flex flex-col gap-8 my-10">
-        {offerListings && offerListings.length > 0 && (
-          <div className="flex flex-col gap-2">
+      <div className="max-w-6xl p-4 flex flex-col mx-auto gap-20 my-10">
+         {offerListings && offerListings.length > 0 && (
+          <div className="flex flex-col gap-2 mx-auto lg:ml-16">
             <div className="flex flex-col gap-1">
-              <h2 className="text-3xl text-slate-700 font-semibold">
+              <h2 className="text-3xl text-slate-700 font-mono font-semibold">
                 Recent Offers
               </h2>
               <Link
@@ -132,9 +132,9 @@ export default function Home() {
         )}
 
         {rentListings && rentListings.length > 0 && (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 mx-auto">
             <div className="flex flex-col gap-1">
-              <h2 className="text-3xl text-slate-700 font-semibold">
+              <h2 className="text-3xl text-slate-700 font-mono font-semibold">
                 Recent places for rent
               </h2>
               <Link
@@ -153,9 +153,9 @@ export default function Home() {
         )}
 
         {saleListings && saleListings.length > 0 && (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 mx-auto">
             <div className="flex flex-col gap-1">
-              <h2 className="text-3xl text-slate-700 font-semibold">
+              <h2 className="text-3xl text-slate-700  font-mono font-semibold">
                 Recent places for sale
               </h2>
               <Link
@@ -174,21 +174,39 @@ export default function Home() {
         )}
       </div>
 
-      
+
       {!currentUser && (
         <div className="mt-[100px] flex justify-center">
-        <Link to="/sign-in"
+          <Link to="/sign-in"
 
-          className="bg-slate-700 hover:bg-gray-300 text-white rounded-full shadow-lg hover:shadow-gray-700 hover:text-gray-700 py-3 px-10 text-center duration-200 hover:border-gray-400 border-transparent border-2  hover:border-2"
-        >
-          Signin to Continue
-        </Link>
+            className="bg-slate-700 hover:bg-gray-300 text-white rounded-full shadow-lg hover:shadow-gray-700 hover:text-gray-700 py-3 px-10 text-center duration-200 hover:border-gray-400 border-transparent border-2  hover:border-2"
+          >
+            Signin to Continue
+          </Link>
         </div>
       )}
-         {/*  bg-gray-700 text-white hover:bg-gray-300 shadow-lg hover:shadow-gray-700 hover:text-gray-700 duration-200 border-gray-500 border-2 px-4 py-3 rounded-lg font-semibold */}
-      
 
-     
+      {currentUser && (
+        <div className="mt-[100px] mx-auto flex flex-col sm:flex-row w-fit gap-4 justify-center ">
+          <Link to="/search"
+
+            className="bg-slate-700 hover:bg-gray-300 text-white rounded-full shadow-lg hover:shadow-gray-700 hover:text-gray-800 py-3 px-10 text-center duration-200 hover:border-gray-400 border-transparent border-2 font-semibold  hover:border-2"
+          >
+            Search Listing
+          </Link>
+
+          <Link to="/create-listing"
+
+            className="bg-slate-700 hover:bg-gray-300 text-white rounded-full shadow-lg hover:shadow-gray-700 hover:text-gray-800 py-3 px-10 text-center duration-200 hover:border-gray-400 border-transparent border-2 font-semibold hover:border-2"
+          >
+            Create Listing
+          </Link>
+        </div>
+      )}
+
+
+
+
 
       <footer className="h-[300px] p-14 bg-gradient-to-b from-gray-300 mt-[150px] to-gray-300">
 
