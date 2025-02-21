@@ -56,7 +56,7 @@ export default function CreateListing() {
 
     },[]);
 
-    // console.log("This is formData..", formData);
+    // console.log("This is updated formData..", formData);
 
     // used to keep the user authenticated after refresh 
     useEffect(() => {

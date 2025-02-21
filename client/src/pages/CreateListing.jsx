@@ -35,7 +35,7 @@ export default function CreateListing() {
     const [error, setError] = useState(false);
     const navigate=useNavigate();
 
-    console.log("This is formData..", formData);
+    // console.log("This is formData..", formData);
 
     // used to keep the user authenticated after refresh 
     useEffect(() => {

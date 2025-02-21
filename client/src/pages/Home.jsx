@@ -22,7 +22,7 @@ export default function Home() {
       try {
         const res = await fetch("api/listing/get?offer=true&limit=4");
         const data = await res.json();
-        console.log("Offer Listings:", data); // Debugging API response
+        // console.log("Offer Listings:", data); // Debugging API response
         setOfferListings(data);
         fetchRentListings();
       } catch (error) {
@@ -34,7 +34,7 @@ export default function Home() {
       try {
         const res = await fetch("api/listing/get?type=rent&limit=4");
         const data = await res.json();
-        console.log("Rent Listings:", data);
+        // console.log("Rent Listings:", data);
         setRentListings(data);
         fetchSaleListings();
       } catch (error) {
@@ -46,7 +46,7 @@ export default function Home() {
       try {
         const res = await fetch("api/listing/get?type=sale&limit=4");
         const data = await res.json();
-        console.log("Sale Listings:", data);
+        // console.log("Sale Listings:", data);
         setSaleListings(data);
       } catch (error) {
         console.error("Error fetching sale listings:", error);
@@ -109,7 +109,7 @@ export default function Home() {
 
 
       {/* last section */}
-      <div className="max-w-6xl p-4 flex flex-col mx-auto gap-20 my-10">
+      <div className="max-w-6xl p-4 flex flex-col mx-auto gap-20 ">
          {offerListings && offerListings.length > 0 && (
           <div className="flex flex-col gap-2 mx-auto lg:ml-16">
             <div className="flex flex-col gap-1">
