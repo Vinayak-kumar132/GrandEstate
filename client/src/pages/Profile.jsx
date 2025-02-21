@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-hot-toast";
+import Swal from "sweetalert2";
 import { app } from '../firebase';
 import { updateUserStart, updateUserSuccess, updateUserfailure,deleteUserStart,deleteUserSuccess,deleteUserFailure,signOutUserStart,signOutUserSuccess,signOutUserFailure } from '../redux/user/userSlice'
 import { useDispatch } from 'react-redux';
@@ -81,33 +82,49 @@ export default function Profile() {
   };
 
   const handleDeleteUser = async () => {
-    try {
-      dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser?.validUser?._id || currentUser?._id}`,{
-        method: "DELETE",
-      });
-      const data = res.json();
-      if (data.success === false) {
-        dispatch(deleteUserFailure(data.message));
-        return;
+    
+  
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This action will permanently delete your account!",
+      icon: "warning",
+      scrollbarPadding: false ,
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          dispatch(deleteUserStart());
+  
+          const res = await fetch(`/api/user/delete/${currentUser?.validUser?._id || currentUser?._id}`, {
+            method: "DELETE",
+          });
+
+          if (!res.ok) {
+            throw new Error("Failed to delete user");
+          }
+  
+          const data = await res.json(); // `await` lagana zaroori hai
+  
+          if (data.success === false) {
+            dispatch(deleteUserFailure(data.message));
+            return;
+          }
+  
+          dispatch(deleteUserSuccess(data));
+  
+          Swal.fire("Deleted!", "Your account has been deleted.", "success");
+  
+        } catch (error) {
+          dispatch(deleteUserFailure(error.message));
+          Swal.fire("Error!", "Something went wrong.", "error");
+        }
       }
-      dispatch(deleteUserSuccess(data));
-      toast.success('Account Deleted Successfully.', {
-        style: {
-          border: '1px solid #713200',
-          padding: '16px',
-          color: '#713200',
-        },
-        iconTheme: {
-          primary: '#713200',
-          secondary: '#FFFAEE',
-        },
-      });
-    } catch (error) {
-      dispatch(deleteUserFailure(error.message));
-    }
+    });
   };
-  signOutUserSuccess
+
   const handleSignOut=async ()=>{
     try{
       dispatch(signOutUserStart());
@@ -166,7 +183,7 @@ export default function Profile() {
         setShowListingError(false);
         setShowLoading(true);
         const res=await fetch(`/api/user/listings/${currentUser._id}`);
-       
+        if (!res.ok) throw new Error("Failed to fetch listings"); 
         const data =await res.json();
         if(data.success===false){
           setShowListingError(true);
@@ -174,13 +191,14 @@ export default function Profile() {
         }
         setUserListings(data);
         setShowLoading(false);
+        setOpenList(true);
   
   
       }catch(error){
         setShowListingError(true);
         setShowLoading(false);
       }
-      setOpenList(true);
+      
 
      }
      else{
@@ -194,20 +212,34 @@ export default function Profile() {
   }
 
   const handleListingDelete = async (listingId) => {
-    try {
-      const res = await fetch(`api/listing/delete/${listingId}`, {
-        method: "DELETE",
-      });
-      const data =await res.json();
-      if (data.success === false) {
-        console.log(data.message);
-        return;
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      scrollbarPadding: false ,
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+  
+    if (result.isConfirmed) {
+      try {
+        const res = await fetch(`/api/listing/delete/${listingId}`, {
+          method: "DELETE",
+        });
+        const data = await res.json();
+        if (data.success === false) {
+          console.log(data.message);
+          return;
+        }
+        setUserListings((prev) =>
+          prev.filter((listing) => listing._id !== listingId)
+        );
+        Swal.fire("Deleted!", "Your listing has been deleted.", "success");
+      } catch (error) {
+        console.log(error.message);
       }
-      setUserListings((prev)=>prev.filter((listing)=>listing._id !== listingId))
-      toast.success("List Deleted Successfully");
-    } catch (error) {
-      console.log(error.message);
-      
     }
   };
 
@@ -270,7 +302,7 @@ export default function Profile() {
       </div>
 
        <button disabled={showLoading} onClick={handleShowListings} className='text-green-700 w-full hover:text-green-600 font-semibold mt-2'>{openList ? "Hide Listing":"Show Listing"}</button>
-       <p className='text-red-700 mt-5'>{showListingError ?"Error in showing list":""}</p>
+       <p className='text-red-900 mt-5 flex justify-center italic text-sm'>{showListingError ?"No listing found...":""}</p>
 
        {userListings && userListings.length > 0 && (
         <div className="flex flex-col gap-4">
