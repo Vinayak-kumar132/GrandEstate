@@ -240,7 +240,7 @@ export default function Home() {
         <div className=" flex sm:flex-row-reverse  max-w-7xl mx-auto justify-between">
           {/* <div></div> */}
           <p className="text-xs flex gap-1 flex-wrap sm:whitespace-nowrap sm:text-sm text-gray-900 mt-6">
-            <span className="font-semibold">© 2025 GrandEstate.</span> All rights reserved. Developed by <p className="font-bold">Vinayak Kumar.</p>
+            <span className="font-semibold">© 2025 GrandEstate.</span> All rights reserved. Developed by <p className="font-bold">Passion</p>
           </p>
         </div>
 
