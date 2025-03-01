@@ -29,7 +29,7 @@ export default function Contact({ listing }) {
   return(
     <div>
         {landlord && (
-            <div className="flex flex-col gap-3">
+            <div className="flex w-full  flex-col  gap-3">
                 <p>Contact <span className="font-semibold underline ">{landlord.username}</span> for
                 <span className="font-semibold"> 
                     <span> “</span>{listing.name.toLowerCase()}<span>”</span>
